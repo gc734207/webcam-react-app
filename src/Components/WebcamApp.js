@@ -1,6 +1,7 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import './WebcamApp.css';
+import Player from './Player';
 
 const WebcamApp = () => {
   // Other Refs
@@ -18,6 +19,7 @@ const WebcamApp = () => {
   const [capturing, setCapturing] = React.useState(false);
   const [webcamReady, setWebcamReady] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
+  const [videoUrl, setVideoUrl] = React.useState(null);
 
 
   // Event listener for when receiving chunks from the webcam
@@ -85,6 +87,7 @@ const WebcamApp = () => {
         type: "video/webm"
       });
       const url = URL.createObjectURL(blob);
+      setVideoUrl(url);
 
       // Create an invisible link that gets clicked whenever the download button
       // is pressed
@@ -100,16 +103,8 @@ const WebcamApp = () => {
       }
       downloadRef.current.disabled = false;
 
-      // Create a video that will play the recorded video
-      const video = document.createElement("video");
-      const source = document.createElement("source");
-      video.setAttribute("controls","controls");
-      source.src = url;
-      video.appendChild(source);
-
       // Add the link and video to the DOM
       webcamAppContainerRef.current.appendChild(a);
-      webcamAppContainerRef.current.appendChild(video);
     }
   }, [recordedChunks]);
 
@@ -163,7 +158,8 @@ const WebcamApp = () => {
             onUserMediaError={handleUserMediaError}
             onUserMedia={handleUserMedia}
             />
-        <div className="webcam-app-area-item" ref={webcamAppContainerRef}/>
+          <Player url={videoUrl}/>
+          <div className="webcam-app-area-item" ref={webcamAppContainerRef}/>
       </div>
     </div>
    
