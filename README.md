@@ -3,6 +3,7 @@
 * Click the "New Capture" button to record a video from the webcam.
 * The "New Capture" button becomes "Stop Capture" to stop the recording.
 * The "Download" button will become available after stopping the recording.
+* Resolution selection is available. Recording resolution will be changed based on the selected resolution.
 * The resolution selection is not available in the middle of a recording.
 * After recording, the video preview area will become visible under the webcam preview.
 * A custom video buttons bar will appear under the video preview with the following features:
@@ -10,6 +11,7 @@
   * Stop
   * Seek
   * Select resolution for the video (resizes the video)
+* An error is displayed if the webcam cannot be accessed.
 
 ## Available Scripts
 
