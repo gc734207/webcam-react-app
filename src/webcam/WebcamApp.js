@@ -5,7 +5,8 @@ import './WebcamApp.css';
 const WebcamApp = () => {
   const webcamRef = React.useRef(null);
   const mediaRecorderRef = React.useRef(null);
-  const videoToolsArea = React.useRef(null);
+  const webcamAppContainerRef = React.useRef(null);
+  const downloadRef = React.useRef(null);
   const [capturing, setCapturing] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
 
@@ -39,9 +40,8 @@ const WebcamApp = () => {
 
   React.useEffect(() => {
     if (recordedChunks.length > 0) {
-      if (videoToolsArea.current) {
-        videoToolsArea.current.innerHTML = '';
-        videoToolsArea.current.remove();
+      if (webcamAppContainerRef.current) {
+        webcamAppContainerRef.current.innerHTML = '';
       }
 
       const blob = new Blob(recordedChunks, {
@@ -55,11 +55,10 @@ const WebcamApp = () => {
       a.href = url;
       a.download = "react-webcam-stream-capture.webm";
 
-      const button = document.createElement("button");
-      button.onclick = function() {
+      downloadRef.current.onclick = function() {
         a.click();
       }
-      button.textContent = "Download";
+      downloadRef.current.disabled = false;
 
       const video = document.createElement("video");
       const source = document.createElement("source");
@@ -68,22 +67,27 @@ const WebcamApp = () => {
       video.appendChild(source);
       video.appendChild(source);
 
-      document.body.appendChild(div);
+      webcamAppContainerRef.current.appendChild(div);
       div.appendChild(a);
-      div.appendChild(button);
       div.appendChild(video);
-      videoToolsArea.current = div;
     }
   }, [recordedChunks]);
 
   return (
-    <>
-      <Webcam audio={false} ref={webcamRef} />
-      {capturing 
-        ? <button onClick={handleStopCaptureClick}>Stop Capture</button>
-        : <button onClick={handleStartCaptureClick}>New Capture</button>
-      }
-    </>
+    <div>
+      <div className="webcam-app-global-controls">
+        {capturing 
+          ? <button onClick={handleStopCaptureClick}>Stop Capture</button>
+          : <button onClick={handleStartCaptureClick}>New Capture</button>
+        }
+        <button ref={downloadRef} disabled="true">Download</button>
+      </div>
+      <div className="webcam-app-area">
+          <Webcam audio={false} ref={webcamRef} />
+        <div className="webcam-app-area-item" ref={webcamAppContainerRef}/>
+      </div>
+    </div>
+   
   );
 };
 
