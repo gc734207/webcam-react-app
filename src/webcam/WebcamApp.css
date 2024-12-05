@@ -1,6 +1,17 @@
 .webcam-app-global-controls {
   text-align: center;
+  padding: 10px;
   margin: 10px;
+}
+
+.webcam-app-global-controls > button {
+  padding: 5px;
+  margin: 5px;
+}
+
+.webcam-app-global-controls > select {
+  padding: 5px;
+  margin: 5px;
 }
 
 .webcam-app-area {
