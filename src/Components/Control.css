@@ -67,6 +67,18 @@ input[type=”range”]::-webkit-slider-thumb {
   border-width: 0px;
 }
 
+.control-pause {
+  height: 20px;
+  background-color: #ffffff00;
+  margin-left:11px;
+  border-style: solid;
+  border-color: #C02942;
+  border-style: double;
+  border-width: 0px 0px 0px 10px;
+  position:absolute;
+  width: 20px;
+}
+
 .control-stop {
   height: 20px;
   width: 20px;

@@ -2,19 +2,28 @@ import React from "react";
 import "./Control.css";
 
 const Control = ({videoRef, defaultResolution, seekRef}) => {
-  
+  const playPauseRef = React.useRef(null);
   const [resolution, setResolution] = React.useState(defaultResolution);
   const [isPlaying, setIsPlaying] = React.useState(false);
 
+  const handleEnded = React.useCallback(() => {
+    playPauseRef.current.classList.remove("control-pause");
+    playPauseRef.current.classList.add("control-play");
+  }, [videoRef])
 
   const handlePlayPause = React.useCallback(() => {
     if (videoRef) {
       if ((videoRef.current.paused) || (videoRef.current.stopped)) {
+        videoRef.current.onended = handleEnded;
         videoRef.current.play();
+        playPauseRef.current.classList.add("control-pause");
+        playPauseRef.current.classList.remove("control-play");
         setIsPlaying(true);
       }
       else {
         videoRef.current.pause();
+        playPauseRef.current.classList.remove("control-pause");
+        playPauseRef.current.classList.add("control-play");
         setIsPlaying(false);
       }
     }
@@ -24,6 +33,8 @@ const Control = ({videoRef, defaultResolution, seekRef}) => {
     if (videoRef) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
+      playPauseRef.current.classList.remove("control-pause");
+      playPauseRef.current.classList.add("control-play");
     }
   }
 
@@ -57,7 +68,7 @@ const Control = ({videoRef, defaultResolution, seekRef}) => {
         <>
           <div className="control-buttons">
             <div onClick={handlePlayPause} className="control-button control-square">
-              <button className="control-play"></button>
+              <button ref={playPauseRef} className="control-play"></button>
               <span/>
             </div>
             <div onClick={handleStop} className="control-button control-square">
