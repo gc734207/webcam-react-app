@@ -18,6 +18,7 @@ const Player = ({url}) => {
     <div className="player-container">
       {url && 
         <>
+          <h2>Video Preview</h2>
           <video
             src={url}
             ref={videoRef}

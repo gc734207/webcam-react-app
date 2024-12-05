@@ -130,7 +130,8 @@ const WebcamApp = () => {
   }, [setWebcamReady, setResolution]);
 
   return (
-    <div>
+    <div className="webcam-app-container">
+      <h2>Webcam App</h2>
       <div className="webcam-app-global-controls">
         {capturing 
           ? <button onClick={handleStopCaptureClick}>Stop Capture</button>
