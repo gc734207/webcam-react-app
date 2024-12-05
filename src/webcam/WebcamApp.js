@@ -8,6 +8,7 @@ const WebcamApp = () => {
   const webcamAppContainerRef = React.useRef(null);
   const downloadRef = React.useRef(null);
   const selectRef = React.useRef(null);
+  const webcamAppAreaErrorRef = React.useRef(null);
   const [resolution, setResolution] = React.useState({height:720});
   const [capturing, setCapturing] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
@@ -77,6 +78,10 @@ const WebcamApp = () => {
     }
   }, [recordedChunks]);
 
+  function handleUserMediaError() {
+    webcamAppAreaErrorRef.current.innerHTML = "Error loading webcam.";
+  }
+
   return (
     <div>
       <div className="webcam-app-global-controls">
@@ -92,7 +97,13 @@ const WebcamApp = () => {
         </select>
       </div>
       <div className="webcam-app-area">
-          <Webcam videoConstraints={resolution} audio={false} ref={webcamRef} />
+          <div ref={webcamAppAreaErrorRef}/>
+          <Webcam
+            videoConstraints={resolution}
+            audio={false}
+            ref={webcamRef}
+            onUserMediaError={handleUserMediaError}
+            />
         <div className="webcam-app-area-item" ref={webcamAppContainerRef}/>
       </div>
     </div>
