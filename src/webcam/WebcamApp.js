@@ -8,7 +8,7 @@ const WebcamApp = () => {
   const webcamAppContainerRef = React.useRef(null);
   const downloadRef = React.useRef(null);
   const selectRef = React.useRef(null);
-  const [resolution, setResolution] = React.useState({width:720});
+  const [resolution, setResolution] = React.useState({height:720});
   const [capturing, setCapturing] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
 
@@ -85,7 +85,7 @@ const WebcamApp = () => {
           : <button onClick={handleStartCaptureClick}>New Capture</button>
         }
         <button ref={downloadRef} disabled={true}>Download</button>
-        <select ref={selectRef} value={resolution.width} name="resolution" onChange={e => setResolution({ width: e.target.value })}>
+        <select ref={selectRef} value={resolution.height} name="resolution" onChange={e => setResolution({ height: e.target.value })}>
           <option value="480">480P</option>
           <option value="720">720P</option>
           <option value="1080">1080P</option>
