@@ -49,6 +49,21 @@ const WebcamApp = () => {
     }
   }, [recordedChunks]);
 
+  const handleDownload = React.useCallback(() => {
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/webm"
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      document.body.appendChild(a);
+      a.style = "display: none";
+      a.href = url;
+      a.download = "react-webcam-stream-capture.webm";
+      a.click();
+    }
+  }, [recordedChunks]);
+
   return (
     <>
       <Webcam audio={false} ref={webcamRef} />
@@ -56,6 +71,10 @@ const WebcamApp = () => {
         <button onClick={handleStopCaptureClick}>Stop Capture</button>
       ) : (
         <button onClick={handleStartCaptureClick}>Start Capture</button>
+      )}
+
+      {recordedChunks.length > 0 && (
+        <button onClick={handleDownload}>Download</button>
       )}
     </>
   );
