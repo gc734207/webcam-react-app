@@ -8,10 +8,13 @@ const Control = ({videoRef, defaultResolution, seekRef}) => {
 
   // Handler for when the video ends.
   // Used to guarantee the play/pause button is a play button.
+  // Sets isPlaying to false so that seeking after it stops does
+  // not continue playing
   const handleEnded = React.useCallback(() => {
     playPauseRef.current.classList.remove("control-pause");
     playPauseRef.current.classList.add("control-play");
-  }, [videoRef])
+    setIsPlaying(false);
+  }, [playPauseRef])
 
   // Handler for the play/pause button
   // Changes the play/pause button corresponding to if the video is paused/playing
@@ -47,18 +50,18 @@ const Control = ({videoRef, defaultResolution, seekRef}) => {
         setIsPlaying(false);
       }
     }
-  }, [setIsPlaying, videoRef]);
+  }, [setIsPlaying, videoRef, handleEnded]);
 
   // Handler for the stop button. Sets the video back to the beginning and pauses.
   // Ensures the play button is displayed instead of the pause button.
-  function handleStop() {
+  const handleStop = React.useCallback(() => {
     if (videoRef) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
       playPauseRef.current.classList.remove("control-pause");
       playPauseRef.current.classList.add("control-play");
     }
-  }
+  }, [videoRef, playPauseRef]);
 
   // Handler for seeking
   // Converts the area on the bar to an actual time based on the video's duration
@@ -111,6 +114,7 @@ const Control = ({videoRef, defaultResolution, seekRef}) => {
                 type="range"
                 className="control-seekbar"
                 max="100"
+                defaultValue="0"
                 onChange={handleSeekInput}
                 onMouseDown={handleSeekMouseDown}
                 onMouseUp={handleSeekMouseUp}/>
