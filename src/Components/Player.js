@@ -1,5 +1,6 @@
 import React from "react";
 import Control from "./Control";
+import "./Player.css";
 
 const Player = ({url}) => {
   const videoRef = React.useRef(null);
@@ -14,10 +15,16 @@ const Player = ({url}) => {
   }
 
   return (
-    <div>
+    <div className="player-container">
       {url && 
         <>
-          <video src={url} ref={videoRef} width="auto" height={defaultResolution} onTimeUpdate={() => {handleOnTimeUpdate()}}/>
+          <video
+            src={url}
+            ref={videoRef}
+            width="auto"
+            height={defaultResolution}
+            onTimeUpdate={() => {handleOnTimeUpdate()}}
+            className="player-video"/>
           {videoRef && 
             <Control
               videoRef={videoRef}

@@ -1,7 +1,7 @@
 .webcam-app-global-controls {
   text-align: center;
-  padding: 10px;
-  margin: 10px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .webcam-app-global-controls > button {
@@ -16,4 +16,6 @@
 
 .webcam-app-area {
   text-align: center;
+  padding: 0px;
+  margin: 0px;
 }

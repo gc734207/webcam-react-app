@@ -3,8 +3,6 @@ import "./Control.css";
 
 const Control = ({videoRef, defaultResolution, seekRef}) => {
   
-  const playPauseRef = React.useRef(null);
-  const stopRef = React.useRef(null);
   const [resolution, setResolution] = React.useState(defaultResolution);
   const [isPlaying, setIsPlaying] = React.useState(false);
 
@@ -58,22 +56,31 @@ const Control = ({videoRef, defaultResolution, seekRef}) => {
       {videoRef && 
         <>
           <div className="control-buttons">
-            <button ref={playPauseRef} onClick={handlePlayPause}>Play</button>
-            <button ref={stopRef} onClick={handleStop}>Stop</button>
-            <input
-              ref={seekRef}
-              type="range"
-              className="control-seekbar"
-              max="100"
-              onChange={handleSeekInput}
-              onMouseDown={handleSeekMouseDown}
-              onMouseUp={handleSeekMouseUp}/>
-
-            <select value={resolution} name="resolution" onChange={e => handleResolutionSelection(e.target.value)}>
-              <option value="480">480P</option>
-              <option value="720">720P</option>
-              <option value="1080">1080P</option>
-            </select>
+            <div onClick={handlePlayPause} className="control-button control-square">
+              <button className="control-play"></button>
+              <span/>
+            </div>
+            <div onClick={handleStop} className="control-button control-square">
+              <button className="control-stop"></button>
+              <span/>
+            </div>
+            <div className="control-seekbar-container">
+              <input
+                ref={seekRef}
+                type="range"
+                className="control-seekbar"
+                max="100"
+                onChange={handleSeekInput}
+                onMouseDown={handleSeekMouseDown}
+                onMouseUp={handleSeekMouseUp}/>
+            </div>
+            <div>
+              <select className="control-select" value={resolution} name="resolution" onChange={e => handleResolutionSelection(e.target.value)}>
+                <option value="480">480P</option>
+                <option value="720">720P</option>
+                <option value="1080">1080P</option>
+              </select>
+            </div>
           </div>
         </>
       }
