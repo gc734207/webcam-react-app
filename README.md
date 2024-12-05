@@ -15,6 +15,10 @@
 
 ## Available Scripts
 
+After cloning, the dependencies can be initialized by running this:
+
+### `npm run init`
+
 In the project directory, you can run:
 
 ### `npm start`
