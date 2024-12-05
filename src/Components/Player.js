@@ -7,6 +7,8 @@ const Player = ({url}) => {
   const seekRef = React.useRef(null);
   const defaultResolution = 480;
 
+  // Handler for the video whenever the time changes
+  // Converts to a value on the seek bar, which bas a hard-coded value of 100
   function handleOnTimeUpdate() {
     if (seekRef) {
       const value = (100 / videoRef.current.duration) * videoRef.current.currentTime;
